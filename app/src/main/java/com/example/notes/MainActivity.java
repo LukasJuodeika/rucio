@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,28 +11,33 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.notes.fragments.ListFragment;
 import com.example.notes.fragments.SettingsFragment;
+import com.example.notes.storage.NotesRepository;
+import com.example.notes.storage.SettingsRepository;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MockRepository mockRepository;
+    private Repository repository;
+
+    private SettingsRepository settingsRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mockRepository = new MockRepository();
+        repository = new NotesRepository(this);
+        settingsRepository = new SettingsRepository(this);
         setContentView(R.layout.activity_main);
         openListView();
     }
 
     private void openListView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.container, ListFragment.newInstance(), ListFragment.class.getSimpleName());
+        fragmentTransaction.replace(R.id.container, ListFragment.newInstance(), ListFragment.class.getSimpleName());
         fragmentTransaction.commit();
     }
 
     private void openSettingsView() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.container, SettingsFragment.newInstance(), SettingsFragment.class.getSimpleName());
+        fragmentTransaction.replace(R.id.container, SettingsFragment.newInstance(), SettingsFragment.class.getSimpleName());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -56,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public MockRepository getRepository() {
-        return mockRepository;
+    public Repository getRepository() {
+        return repository;
+    }
+
+    public SettingsRepository getSettingsRepository() {
+        return settingsRepository;
     }
 }

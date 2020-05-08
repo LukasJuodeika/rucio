@@ -13,20 +13,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.MainActivity;
-import com.example.notes.MockRepository;
+import com.example.notes.Repository;
 import com.example.notes.NotesAdapter;
 import com.example.notes.R;
+import com.example.notes.storage.SettingsRepository;
 
 public class ListFragment extends Fragment implements NotesAdapter.OnItemClickListener {
 
-    private MockRepository mockRepository;
+    private Repository repository;
 
     private RecyclerView recyclerView;
+
+    private SettingsRepository settingsRepository;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mockRepository = ((MainActivity) getActivity()).getRepository();
+        repository = ((MainActivity) getActivity()).getRepository();
+        settingsRepository = ((MainActivity) getActivity()).getSettingsRepository();
     }
 
     @Nullable
@@ -46,8 +50,14 @@ public class ListFragment extends Fragment implements NotesAdapter.OnItemClickLi
     @Override
     public void onResume() {
         super.onResume();
-        NotesAdapter adapter = new NotesAdapter(getContext(), mockRepository.getNotes(), this);
+        NotesAdapter adapter = new NotesAdapter(getContext(), repository.getNotes(), this);
         recyclerView.setAdapter(adapter);
+
+        if(settingsRepository.isDarkModeEnabled()){
+            getView().findViewById(R.id.background).setBackgroundColor(getResources().getColor(R.color.dark));
+        } else {
+            getView().findViewById(R.id.background).setBackgroundColor(getResources().getColor(R.color.white));
+        }
     }
 
     private void setupRecyclerView(View view) {

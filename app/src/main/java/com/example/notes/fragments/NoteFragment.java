@@ -11,15 +11,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.notes.MainActivity;
-import com.example.notes.MockRepository;
+import com.example.notes.Repository;
 import com.example.notes.Note;
 import com.example.notes.R;
+import com.example.notes.storage.SettingsRepository;
 
 public class NoteFragment extends Fragment {
 
     private Note note;
 
-    private MockRepository mockRepository;
+    private Repository repository;
+
+    private SettingsRepository settingsRepository;
 
     private EditText noteText;
 
@@ -29,9 +32,10 @@ public class NoteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note, null);
 
-        mockRepository = ((MainActivity) getActivity()).getRepository();
+        repository = ((MainActivity) getActivity()).getRepository();
+        settingsRepository = ((MainActivity) getActivity()).getSettingsRepository();
         int id = getArguments().getInt("id");
-        note = mockRepository.getNote(id);
+        note = repository.getNote(id);
 
         noteText = view.findViewById(R.id.noteText);
         noteText.setText(note.getText());
@@ -40,12 +44,23 @@ public class NoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 note.setText(noteText.getText().toString());
-                mockRepository.addNote(note);
+                repository.addNote(note);
                 getActivity().onBackPressed();
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(settingsRepository.isDarkModeEnabled()){
+            getView().findViewById(R.id.background).setBackgroundColor(getResources().getColor(R.color.dark));
+        } else {
+            getView().findViewById(R.id.background).setBackgroundColor(getResources().getColor(R.color.white));
+        }
     }
 
     public static NoteFragment newInstance(int id) {

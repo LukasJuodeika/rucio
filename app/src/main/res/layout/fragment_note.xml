@@ -3,12 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:id="@+id/background"
     >
 
     <EditText
         android:id="@+id/noteText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:layout_weight="1"
         android:padding="10dp"
         android:gravity="top"
@@ -21,10 +23,10 @@
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:textColor="@color/dark"
         android:text="Save"
 
         />
-
-
 
 </LinearLayout>
