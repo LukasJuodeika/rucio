@@ -2,15 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    >
 
-    <TextView
+    <EditText
+        android:id="@+id/noteText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:padding="10dp"
+        android:gravity="top"
         android:text="Long ass note description with some really meaningful text">
 
 
-    </TextView>
+    </EditText>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+
+        />
+
+
 
 </LinearLayout>

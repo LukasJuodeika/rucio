@@ -47,6 +47,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
+        private Note note;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,17 +55,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick();
+                    listener.onItemClick(note.getId());
                 }
             });
         }
 
         public void setData(Note note) {
-            title.setText(note.getTitle());
+            this.note = note;
+            this.title.setText(note.getText());
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick();
+        void onItemClick(int id);
     }
 }

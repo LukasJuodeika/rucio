@@ -15,9 +15,12 @@ import com.example.notes.fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MockRepository mockRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mockRepository = new MockRepository();
         setContentView(R.layout.activity_main);
         openListView();
     }
@@ -51,5 +54,9 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public MockRepository getRepository() {
+        return mockRepository;
     }
 }

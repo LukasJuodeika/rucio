@@ -1,13 +1,31 @@
 package com.example.notes;
 
 public class Note {
-    private final String title;
+    private int id;
 
-    public Note(String title) {
-        this.title = title;
+    private String text;
+
+    public Note(String text) {
+        this.text = text;
     }
 
-    public String getTitle() {
-        return title;
+    public Note(
+            String title,
+            int id
+    ) {
+        this.text = title;
+        this.id = id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getId() {
+        return id;
     }
 }
