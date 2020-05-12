@@ -7,6 +7,7 @@ import androidx.room.Room;
 import com.example.notes.Note;
 import com.example.notes.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 public class NotesRepository implements Repository {
@@ -36,7 +37,7 @@ public class NotesRepository implements Repository {
     @Override
     public Note getNote(int id) {
         if(id == -1)
-            return new Note("");
+            return new Note("", new Date().toString());
 
         return appDatabase.notesDAO().getNote(id);
     }

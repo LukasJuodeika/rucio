@@ -13,6 +13,7 @@ import com.example.notes.fragments.ListFragment;
 import com.example.notes.fragments.SettingsFragment;
 import com.example.notes.storage.NotesRepository;
 import com.example.notes.storage.SettingsRepository;
+import com.facebook.stetho.Stetho;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Stetho.initializeWithDefaults(this);
         repository = new NotesRepository(this);
         settingsRepository = new SettingsRepository(this);
         setContentView(R.layout.activity_main);
